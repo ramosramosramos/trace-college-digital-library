@@ -76,7 +76,6 @@
     }
 }
 
-
 :root {
     --primary-color: #800000;
     /* Maroon */
@@ -87,7 +86,6 @@
     --medium-gray: #e0e0e0;
     --dark-gray: #333333;
     --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
 
     --background: #800000;
 
@@ -167,5 +165,18 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+/*
+  ---break---
+*/
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
     }
 }

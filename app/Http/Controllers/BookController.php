@@ -16,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('media')->select(['id', 'title', 'author'])->paginate(20);
+        $books = Book::with('media')->select(['id', 'title', 'author'])->latest()->paginate(20);
 
         return inertia('book/index', ['books' => BookResource::collection($books)]);
     }
@@ -26,7 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return inertia('book/create',['categories'=>$this->categories()]);
+        return inertia('book/create', ['categories' => $this->categories()]);
     }
 
     /**
@@ -34,7 +34,13 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $book = Book::create($request->validated());
+        if ($request->hasFile('file')) {
+            $book->addMedia($request->file)->toMediaCollection('files');
+        }
+        if ($request->hasFile('image')) {
+            $book->addMedia($request->image)->toMediaCollection('images');
+        }
     }
 
     /**
@@ -71,7 +77,7 @@ class BookController extends Controller
 
     public function categories()
     {
-        return Cache::remember('categories',now()->addHours(23),function(){
+        return Cache::remember('categories', now()->addHours(23), function () {
             return Category::select(['id', 'name'])->get();
         });
     }

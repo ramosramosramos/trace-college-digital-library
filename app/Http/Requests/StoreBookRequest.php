@@ -11,7 +11,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'=>['required','string'],
+            'author'=>['required','string'],
+            'category_id'=>['required','numeric'],
+            'file'=>['required','file'],
+            'image'=>['nullable','file'],
+        ];
+
+    }
+    public function category(){
+        return [
+            'category_id.required'=>'The category field is required.'
         ];
     }
 }
