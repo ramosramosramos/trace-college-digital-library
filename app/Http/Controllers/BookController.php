@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 
 class BookController extends Controller
 {
@@ -25,7 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return inertia('book/create');
+        return inertia('book/create',['categories'=>$this->categories()]);
     }
 
     /**
@@ -70,6 +71,8 @@ class BookController extends Controller
 
     public function categories()
     {
-        return Category::select(['id', 'name'])->get();
+        return Cache::remember('categories',now()->addHours(23),function(){
+            return Category::select(['id', 'name'])->get();
+        });
     }
 }

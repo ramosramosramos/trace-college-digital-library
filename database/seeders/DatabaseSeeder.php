@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
         ]);
-        Category::factory(40)->create();
+        Category::factory(20)->create();
         Book::factory(100)->create();
     }
 }
