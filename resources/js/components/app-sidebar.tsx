@@ -9,7 +9,7 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
 
- 
+
     {
         title: 'Books',
         url: route('books.index'),
@@ -46,9 +46,9 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <a href={route('home')}>
                                 <AppLogo />
-                            </Link>
+                            </a>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

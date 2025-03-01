@@ -16,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('media')->select(['id', 'title', 'author'])->latest()->paginate(20);
+        $books = Book::with('media')->select(['id', 'title', 'author'])->latest()->paginate(21);
 
         return inertia('book/index', ['books' => BookResource::collection($books)]);
     }

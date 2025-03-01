@@ -22,7 +22,7 @@ class BookResource extends JsonResource
             'title' => $this->title,
             'author' => $this->author,
             'category_id' => $this->category_id,
-            'image' => $this->getFirstMediaUrl('images') ? $this->getFirstMediaUrl('images') : Storage::url('no_book.jpg'),
+            'image' => $this->getFirstMediaUrl('images') ? $this->getFirstMediaUrl('images') : '/dump/no_book.jpg',
             'file' => $this->getFirstMediaUrl('files') ? $this->getFirstMediaUrl('files') : '#',
         ];
     }

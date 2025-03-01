@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('media')->select(['id','name'])->paginate(20);
+        $categories = Category::with('media')->select(['id','name'])->paginate(21);
         return inertia('category/index',['categories'=>CategoryResource::collection($categories)]);
     }
 
