@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('media')->select(['id', 'name'])->paginate(21);
+        $categories = Category::with('media')->select(['id', 'name'])->latest()->paginate(21);
 
         return inertia('category/index', ['categories' => CategoryResource::collection($categories)]);
     }
@@ -51,7 +51,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return inertia('category/edit');
+        return inertia('category/edit',['category'=>new CategoryResource($category->load('media'))]);
     }
 
     /**

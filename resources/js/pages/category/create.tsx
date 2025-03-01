@@ -53,7 +53,7 @@ export default function Create() {
             preserveScroll: true,
             onSuccess: () => {
                 reset()
-                toast.success('New book has been successfully created.',)
+                toast.success('New category has been successfully created.',)
                 setTimeout(() => {
                     router.get(route('categories.index'))
                 }, 1000);
