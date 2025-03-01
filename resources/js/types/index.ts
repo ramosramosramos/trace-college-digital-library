@@ -42,7 +42,7 @@ export interface User {
 }
 
 export interface Book{
-    id: number;
+    id: string;
     title: string;
     image?: string;
     file?: string;

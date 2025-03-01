@@ -56,7 +56,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        
+        return inertia('book/edit', ['categories' => $this->categories() ,'book'=>new BookResource($book->load('media')) ]);
     }
 
     /**

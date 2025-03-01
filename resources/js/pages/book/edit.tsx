@@ -16,21 +16,24 @@ import { FilePond, registerPlugin } from 'react-filepond'
 import 'filepond/dist/filepond.min.css'
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
-
+import FilePondPluginFilePoster from 'filepond-plugin-file-poster';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType);
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+import 'filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css';
+
+// Import the plugin styles
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType, FilePondPluginFilePoster);
 
 
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Books',
-        href: '/books',
+        title: 'Edit',
+        href: '/edit',
     },
 ];
 
-interface FormCreate {
+interface FormEdit {
     title: string;
     author: string;
     category_id: string;
@@ -43,33 +46,44 @@ interface Category {
     id: string;
     name: string;
 }
+interface Book {
+    id: string;
+    category_id: string;
+    title: string;
+    author: string;
+    file: File;
+    image: File;
+}
 
-export default function Create({ categories }: { categories: Category[] }) {
+export default function Edit({ categories, book }: { categories: Category[], book: { data: Book } }) {
 
+
+    console.log(book)
     const [images, setImages] = useState<any[]>([]);
     const [files, setFiles] = useState<any[]>([]);
-    const { data, setData, errors, processing, reset, post } = useForm<FormCreate>({
-        title: '',
-        author: '',
-        category_id: '',
-        file: undefined,
-        image: undefined,
+    const { data, setData, errors, processing, reset, post } = useForm<FormEdit>({
+        title: book.data?.title || '',
+        author: book.data?.author || '',
+        category_id: book.data?.category_id || '',
+        file: book.data?.file || undefined,
+        image: book.data?.image || undefined,
     });
 
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('books.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                reset()
-                toast.success('New book has been successfully created.',)
-                setTimeout(() => {
-                    router.get(route('books.index'))
-                }, 1000);
-            }
-        })
+        // post(route('books.store'), {
+        //     preserveScroll: true,
+        //     onSuccess: () => {
+        //         reset()
+        //         toast.success('New book has been successfully Editd.',)
+        //         setTimeout(() => {
+        //             router.get(route('books.index'))
+        //         }, 1000);
+        //     }
+        // })
 
+        console.log(data)
     };
 
     return (
@@ -113,21 +127,33 @@ export default function Create({ categories }: { categories: Category[] }) {
                             {/* Category Field */}
                             <div className="grid gap-2">
                                 <Label htmlFor="category">Category</Label>
-                                <SelectInput label='Select a category' value={data.category_id} onValueChange={(value) => setData('category_id', value)} items={categories} />
+                                <SelectInput label='Select a category' value={String(data.category_id)} onValueChange={(value) => setData('category_id', value)} items={categories} />
                                 <InputError message={errors.category_id} />
                             </div>
 
                             {/* File Upload (PDF/DOC) */}
                             <div className="grid gap-2">
                                 <Label htmlFor="file">Upload PDF/DOC</Label>
-                                {/* <Input
-                                    id="file"
-                                    type="file"
-                                    accept=".pdf,.doc,.docx"
-                                    onChange={(e) => setData('file', e.target.files?.[0])}
-                                /> */}
-                                 <FilePond
-                                    files={files}
+
+                                <FilePond
+                                    files={files.length > 0 ? files :
+                                        (book.data?.file ? [{
+                                            source: book.data.file, options: {
+                                                type: 'local',
+
+                                                // optional stub file information
+                                                file: {
+                                                    name: book.data.file,
+                                                    size: 3001025,
+
+                                                },
+
+                                                // pass poster property
+                                                metadata: {
+                                                    poster: book.data.file,
+                                                },
+                                            }
+                                        }] : [])}
                                     onupdatefiles={(files) => {
                                         setFiles(files); // Update FilePond UI
                                         if (files.length > 0) {
@@ -152,8 +178,25 @@ export default function Create({ categories }: { categories: Category[] }) {
                             <div className="grid gap-2">
                                 <Label htmlFor="image">Upload book cover</Label>
                                 <FilePond
-                              
-                                    files={images}
+                                    files={images.length > 0 ? images :
+                                        (book.data?.image ? [{
+                                            source: book.data.image, options: {
+                                                type: 'local',
+
+                                                // optional stub file information
+                                                file: {
+                                                    name: book.data.image,
+                                                    size: 3001025,
+                                                    type: 'image/png',
+                                                },
+
+                                                // pass poster property
+                                                metadata: {
+                                                    poster: book.data.image,
+                                                },
+                                            }
+                                        }] : [])}
+
                                     onupdatefiles={(images) => {
                                         setImages(images); // Update FilePond UI
                                         if (images.length > 0) {
@@ -164,6 +207,7 @@ export default function Create({ categories }: { categories: Category[] }) {
                                     }}
                                     allowMultiple={false}
                                     maxFiles={1}
+
                                     name="image"
                                     acceptedFileTypes={['image/png', 'image/jpeg', 'image/jpg', 'image/webp']}
                                     allowFileTypeValidation={true}
@@ -171,6 +215,7 @@ export default function Create({ categories }: { categories: Category[] }) {
                                     labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
                                 />
                                 <InputError message={errors.image} />
+
                             </div>
 
                             {/* Submit Button */}
