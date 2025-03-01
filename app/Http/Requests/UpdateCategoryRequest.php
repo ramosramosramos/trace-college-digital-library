@@ -24,7 +24,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique(Category::class)->ignore(request()->route()->parameter('category')->id)],
+            // 'name' => ['required', 'string', Rule::unique(Category::class)->ignore(request()->route()->parameter('category')->id)],
+            'name' => ['required', 'string',],
             'image' => ['nullable'],
         ];
     }
