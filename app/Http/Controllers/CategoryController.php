@@ -51,7 +51,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return inertia('category/edit',['category'=>new CategoryResource($category->load('media'))]);
+        return inertia('category/edit', ['category' => new CategoryResource($category->load('media'))]);
     }
 
     /**

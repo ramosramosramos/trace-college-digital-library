@@ -26,5 +26,4 @@ class StoreCategoryRequest extends FormRequest
             'image' => ['nullable', 'file'],
         ];
     }
-
 }

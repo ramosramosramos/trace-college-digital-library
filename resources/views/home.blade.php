@@ -111,14 +111,17 @@ ans:wght@400;600&display=swap" rel="stylesheet">
         }
 
 
-
         .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            /* Ensures exactly 3 columns */
-            gap: 20px;
-        }
+    display: grid;
+    grid-template-columns: 1fr; /* One column on small screens */
+    gap: 20px;
+}
 
+@media only screen and (min-width: 600px) {
+    .featured-grid {
+        grid-template-columns: repeat(3, 1fr); /* Three columns on larger screens */
+    }
+}
 
         .featured-item {
             background: white;

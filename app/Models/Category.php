@@ -13,12 +13,12 @@ class Category extends Model implements HasMedia
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory,InteractsWithMedia,SoftDeletes;
 
-
     protected $fillable = [
         'name',
     ];
 
-    public function books(){
+    public function books()
+    {
         return $this->hasMany(Book::class);
     }
 }

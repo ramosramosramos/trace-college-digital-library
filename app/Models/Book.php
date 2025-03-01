@@ -14,6 +14,7 @@ class Book extends Model implements HasMedia
     use HasFactory, InteractsWithMedia, SoftDeletes;
 
     protected $table = 'books';
+
     protected $fillable = [
         'category_id',
         'title',
