@@ -10,6 +10,18 @@ import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import { toast } from 'sonner';
 
+import { FilePond, registerPlugin } from 'react-filepond'
+
+
+import 'filepond/dist/filepond.min.css'
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
+
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType);
+
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -33,6 +45,9 @@ interface Category {
 }
 
 export default function Create({ categories }: { categories: Category[] }) {
+
+    const [images, setImages] = useState<any[]>([]);
+    const [files, setFiles] = useState<any[]>([]);
     const { data, setData, errors, processing, reset, post } = useForm<FormCreate>({
         title: '',
         author: '',
@@ -41,17 +56,6 @@ export default function Create({ categories }: { categories: Category[] }) {
         image: undefined,
     });
 
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setData('image', file);
-            const reader = new FileReader();
-            reader.onload = () => setImagePreview(reader.result as string);
-            reader.readAsDataURL(file);
-        }
-    };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -65,6 +69,7 @@ export default function Create({ categories }: { categories: Category[] }) {
                 }, 1000);
             }
         })
+
     };
 
     return (
@@ -115,27 +120,56 @@ export default function Create({ categories }: { categories: Category[] }) {
                             {/* File Upload (PDF/DOC) */}
                             <div className="grid gap-2">
                                 <Label htmlFor="file">Upload PDF/DOC</Label>
-                                <Input
+                                {/* <Input
                                     id="file"
                                     type="file"
                                     accept=".pdf,.doc,.docx"
                                     onChange={(e) => setData('file', e.target.files?.[0])}
+                                /> */}
+                                 <FilePond
+                                    files={files}
+                                    onupdatefiles={(files) => {
+                                        setFiles(files); // Update FilePond UI
+                                        if (files.length > 0) {
+                                            setData('file', files[0].file); // Store actual file in `data.file`
+                                        } else {
+                                            setData('file', undefined);
+                                        }
+                                    }}
+                                    allowMultiple={false}
+                                    maxFiles={1}
+                                    name="file"
+                                    acceptedFileTypes={['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel']}
+                                    allowFileTypeValidation={true}
+                                    labelFileTypeNotAllowed="Only  files (PDF, DOC, DOCS) are allowed"
+                                    labelIdle='Drag & Drop your pdf ,doc ,docx or <span class="filepond--label-action">Browse</span>'
                                 />
                                 <InputError message={errors.file} />
                             </div>
 
                             {/* Image Upload */}
+
                             <div className="grid gap-2">
-                                <Label htmlFor="image">Upload Cover Image</Label>
-                                <Input
-                                    id="image"
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
+                                <Label htmlFor="image">Upload book cover</Label>
+                                <FilePond
+                              
+                                    files={images}
+                                    onupdatefiles={(images) => {
+                                        setImages(images); // Update FilePond UI
+                                        if (images.length > 0) {
+                                            setData('image', images[0].file); // Store actual file in `data.image`
+                                        } else {
+                                            setData('image', undefined);
+                                        }
+                                    }}
+                                    allowMultiple={false}
+                                    maxFiles={1}
+                                    name="image"
+                                    acceptedFileTypes={['image/png', 'image/jpeg', 'image/jpg', 'image/webp']}
+                                    allowFileTypeValidation={true}
+                                    labelFileTypeNotAllowed="Only image files (PNG, JPG, WEBP) are allowed"
+                                    labelIdle='Drag & Drop your image or <span class="filepond--label-action">Browse</span>'
                                 />
-                                {imagePreview && (
-                                    <img src={imagePreview} alt="Preview" className="mt-2 h-48 w-4h-48 object-cover rounded-md" />
-                                )}
                                 <InputError message={errors.image} />
                             </div>
 
