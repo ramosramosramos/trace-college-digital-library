@@ -14,7 +14,7 @@ class BookResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $images = $this?->getMedia('images');
+    
 
         return [
             'id' => $this->id,
@@ -22,7 +22,7 @@ class BookResource extends JsonResource
             'author' => $this->author,
             'category_id' => $this->category_id,
             'image' => $this->getFirstMediaUrl('images') ? $this->getFirstMediaUrl('images') : '/dump/no_book.jpg',
-            'file' => $this->getFirstMediaUrl('files') ? $this->getFirstMediaUrl('files') : '#',
+            'file' => $this->getFirstMediaUrl('files') ? $this->getFirstMediaUrl('files') : '',
         ];
     }
 }

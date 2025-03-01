@@ -28,7 +28,7 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, F
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Edit',
+        title: 'Edit book',
         href: '/edit',
     },
 ];
@@ -88,7 +88,7 @@ export default function Edit({ categories, book }: { categories: Category[], boo
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Books" />
+            <Head title="Book edit" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3"></div>
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh]

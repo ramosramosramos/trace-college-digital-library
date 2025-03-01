@@ -25,47 +25,37 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, F
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create book',
-        href: '/books/create',
+        title: 'Create category',
+        href: '/categories/create',
     },
 ];
 
 interface FormCreate {
-    title: string;
-    author: string;
-    category_id: string;
-    file?: any;
+    name: string;
     image?: any;
     [key: string]: any;
 }
 
-interface Category {
-    id: string;
-    name: string;
-}
 
-export default function Create({ categories }: { categories: Category[] }) {
+
+export default function Create() {
 
     const [images, setImages] = useState<any[]>([]);
-    const [files, setFiles] = useState<any[]>([]);
     const { data, setData, errors, processing, reset, post } = useForm<FormCreate>({
-        title: '',
-        author: '',
-        category_id: '',
-        file: undefined,
+        name: '',
         image: undefined,
     });
 
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('books.store'), {
+        post(route('categories.store'), {
             preserveScroll: true,
             onSuccess: () => {
                 reset()
                 toast.success('New book has been successfully created.',)
                 setTimeout(() => {
-                    router.get(route('books.index'))
+                    router.get(route('categories.index'))
                 }, 1000);
             }
         })
@@ -74,7 +64,7 @@ export default function Create({ categories }: { categories: Category[] }) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Book create" />
+            <Head title="Category create" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3"></div>
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh]
@@ -83,74 +73,23 @@ export default function Create({ categories }: { categories: Category[] }) {
                         <div className="grid gap-6">
                             {/* Title Field */}
                             <div className="grid gap-2">
-                                <Label htmlFor="title">Title of the book</Label>
+                                <Label htmlFor="name">Category name</Label>
                                 <Input
-                                    id="title"
+                                    id="name"
                                     type="text"
                                     autoFocus
                                     tabIndex={1}
-                                    autoComplete="title"
-                                    value={data.title}
-                                    onChange={(e) => setData('title', e.target.value)}
+                                    autoComplete="name"
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
                                 />
-                                <InputError message={errors.title} />
-                            </div>
-
-                            {/* Author Field */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="author">Author</Label>
-                                <Input
-                                    id="author"
-                                    type="text"
-                                    tabIndex={2}
-                                    autoComplete="author"
-                                    value={data.author}
-                                    onChange={(e) => setData('author', e.target.value)}
-                                />
-                                <InputError message={errors.author} />
-                            </div>
-
-                            {/* Category Field */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="category">Category</Label>
-                                <SelectInput label='Select a category' value={data.category_id} onValueChange={(value) => setData('category_id', value)} items={categories} />
-                                <InputError message={errors.category_id} />
-                            </div>
-
-                            {/* File Upload (PDF/DOC) */}
-                            <div className="grid gap-2">
-                                <Label htmlFor="file">Upload PDF/DOC</Label>
-                                {/* <Input
-                                    id="file"
-                                    type="file"
-                                    accept=".pdf,.doc,.docx"
-                                    onChange={(e) => setData('file', e.target.files?.[0])}
-                                /> */}
-                                 <FilePond
-                                    files={files}
-                                    onupdatefiles={(files) => {
-                                        setFiles(files); // Update FilePond UI
-                                        if (files.length > 0) {
-                                            setData('file', files[0].file); // Store actual file in `data.file`
-                                        } else {
-                                            setData('file', undefined);
-                                        }
-                                    }}
-                                    allowMultiple={false}
-                                    maxFiles={1}
-                                    name="file"
-                                    acceptedFileTypes={['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel']}
-                                    allowFileTypeValidation={true}
-                                    labelFileTypeNotAllowed="Only  files (PDF, DOC, DOCS) are allowed"
-                                    labelIdle='Drag & Drop your pdf ,doc ,docx or <span class="filepond--label-action">Browse</span>'
-                                />
-                                <InputError message={errors.file} />
+                                <InputError message={errors.name} />
                             </div>
 
                             {/* Image Upload */}
 
                             <div className="grid gap-2">
-                                <Label htmlFor="image">Upload book cover</Label>
+                                <Label htmlFor="image">Upload category image</Label>
                                 <FilePond
 
                                     files={images}
@@ -181,7 +120,7 @@ export default function Create({ categories }: { categories: Category[] }) {
                                 disabled={processing}
                             >
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Add this new book
+                                Add this new category
                             </Button>
                         </div>
                     </form>

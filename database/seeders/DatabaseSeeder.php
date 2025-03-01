@@ -28,5 +28,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Category::factory(20)->create();
         Book::factory(100)->create();
+        $this->call([
+            CategorySeeder::class,
+        ]);
     }
 }
