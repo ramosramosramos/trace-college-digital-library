@@ -11,7 +11,6 @@ class HomeController extends Controller
     {
         $books = Book::with('media')->where('is_featured', true)->limit(3)->get();
 
-
         return view('home', ['books' => BookResource::collection($books)->toArray(request())]);
 
     }

@@ -1,3 +1,10 @@
+<!--        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+ -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,11 +110,15 @@ ans:wght@400;600&display=swap" rel="stylesheet">
             margin-bottom: 30px;
         }
 
+
+
         .featured-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            /* Ensures exactly 3 columns */
             gap: 20px;
         }
+
 
         .featured-item {
             background: white;
@@ -271,7 +282,7 @@ ans:wght@400;600&display=swap" rel="stylesheet">
                 </div> -->
                 @foreach ($books as $book)
                 <div class="featured-item">
-                <img src="{{ $book['image'] }}" alt="{{ $book['title'] }}">
+                    <img src="{{ $book['image'] }}" alt="{{ $book['title'] }}">
                     <h3>{{ $book['title'] }}</h3>
                     <p>{{ $book['author'] }}</p>
                     <a href="{{ $book['file']}}" target="_blank" class="btn-outline">Read Now</a>

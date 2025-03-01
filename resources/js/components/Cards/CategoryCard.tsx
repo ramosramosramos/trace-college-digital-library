@@ -10,14 +10,14 @@ import {
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { BookOpenCheckIcon, EditIcon, MoreVertical, Trash2Icon } from "lucide-react";
 import { SidebarMenuSubButton } from "../ui/sidebar";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
-import { Category } from "@/types";
+import { Category, SharedData } from "@/types";
 
 
 
 export function CategoryCard({ category }: { category: Category }) {
-
+    const {isAdmin}  = usePage<SharedData>().props;
 
     return (
         <Card className={''}>

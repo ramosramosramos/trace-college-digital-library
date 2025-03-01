@@ -100,11 +100,11 @@ class BookController extends Controller
         $book->forceDelete();
     }
 
-
     public function toggleFeatured(Book $book)
     {
-        $book->update(['is_featured' => !$book->is_featured]);
+        $book->update(['is_featured' => ! $book->is_featured]);
     }
+
     public function categories()
     {
         return Cache::remember('categories', now()->addHours(23), function () {

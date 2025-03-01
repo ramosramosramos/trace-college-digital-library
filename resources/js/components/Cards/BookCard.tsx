@@ -10,8 +10,9 @@ import {
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { BookOpenCheckIcon, EditIcon, MoreVertical, Trash2Icon } from "lucide-react";
 import { SidebarMenuSubButton } from "../ui/sidebar";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { toast } from "sonner";
+import { SharedData } from "@/types";
 type Book = {
     id: string;
     title: string;  // Remove `| undefined`
@@ -25,11 +26,13 @@ type Book = {
 
 export function BookCard({ book }: { book: Book }) {
 
-    console.log(book.title)
+        const {isAdmin}  = usePage<SharedData>().props;
+
+
     return (
         <Card className={''}>
 
-            <DropdownMenu>
+          { isAdmin &&   <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <SidebarMenuSubButton className="text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent group">
 
@@ -79,7 +82,7 @@ export function BookCard({ book }: { book: Book }) {
                         </button>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu>}
 
             <CardHeader>
                 <CardTitle>{book.title}</CardTitle>
