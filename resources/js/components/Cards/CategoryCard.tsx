@@ -50,7 +50,7 @@ export function CategoryCard({ category }: { category: Category }) {
                                 router.post(route('categories.destroy',category.id),{},{
                                     preserveScroll:true,
                                     onSuccess:()=>{
-                                        toast.success('Book has been successfully deleted.');
+                                        toast.success('Category has been successfully deleted.');
                                     }
                                 })
                                  }}>

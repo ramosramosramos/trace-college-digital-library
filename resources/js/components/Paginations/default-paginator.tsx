@@ -8,6 +8,7 @@ interface PaginationLink {
 
 interface Meta {
     links: PaginationLink[];
+    total:number;
 }
 
 interface Items {
@@ -18,7 +19,8 @@ interface Items {
 export function DefaultPaginator({ items }: { items: Items }) {
     if (!items?.meta?.links) return null;
 
-    return (
+
+    return ( items.meta.total !==0 &&
         <div className="flex gap-2 mt-4">
             {items.meta.links.map((link, index) => (
                 <Link as="button" preserveScroll
