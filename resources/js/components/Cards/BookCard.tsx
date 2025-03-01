@@ -1,5 +1,4 @@
 
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -8,8 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Link, router } from "@inertiajs/react";
-
  type Book = {
     id: number;
     title: string;  // Remove `| undefined`
@@ -29,7 +26,7 @@ export function BookCard({ book }:{book:Book} ) {
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className=" flex items-center space-x-4 rounded-md border p-4">
-       <img src={book.image} alt="" className="object w-full h-80" />
+       <img src={book.image} alt="" className="object w-full " />
         </div>
         <div>
 

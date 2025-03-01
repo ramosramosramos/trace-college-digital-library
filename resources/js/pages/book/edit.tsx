@@ -25,8 +25,8 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, F
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create',
-        href: '/books/create',
+        title: 'Books',
+        href: '/books',
     },
 ];
 
@@ -152,7 +152,7 @@ export default function Create({ categories }: { categories: Category[] }) {
                             <div className="grid gap-2">
                                 <Label htmlFor="image">Upload book cover</Label>
                                 <FilePond
-
+                              
                                     files={images}
                                     onupdatefiles={(images) => {
                                         setImages(images); // Update FilePond UI
