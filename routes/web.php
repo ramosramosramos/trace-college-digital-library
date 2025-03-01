@@ -11,6 +11,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/books', BookController::class)->except(['update', 'destroy']);
     Route::post('/books/{book}/update', [BookController::class, 'update'])->name('books.update');
     Route::post('/books/{book}/destroy', [BookController::class, 'destroy'])->name('books.destroy');
+    Route::post('/books/{book}/toggleFeatured', [BookController::class, 'toggleFeatured'])->name('books.toggleFeatured');
 
     Route::resource('/categories', CategoryController::class)->except(['update', 'destroy']);
     Route::post('/categories/{category}/update', [CategoryController::class, 'update'])->name('categories.update');

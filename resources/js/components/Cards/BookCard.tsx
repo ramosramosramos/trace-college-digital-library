@@ -18,6 +18,7 @@ type Book = {
     author?: string;
     image?: string;
     file?: string;
+    is_featured:boolean;
 
 };
 
@@ -63,12 +64,27 @@ export function BookCard({ book }: { book: Book }) {
                           <Trash2Icon className="text-red-500"/>    Delete
                         </button>
                     </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                        <button className="cursor-pointer w-full" onClick={
+                            () =>{
+                                router.post(route('books.toggleFeatured',book.id),{},{
+                                    preserveScroll:true,
+                                    onSuccess:()=>{
+                                        toast.success('Succesfully updated.');
+                                    }
+                                })
+                                 }}>
+                       {book.is_featured? 'Remove from featured collection':'Add to  featured collection'}
+                        </button>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
 
             <CardHeader>
                 <CardTitle>{book.title}</CardTitle>
                 <CardDescription>{book.author}</CardDescription>
+                <CardDescription className="text-red-500">{book.is_featured? 'Added in featured collection':''}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className=" flex items-center space-x-4 rounded-md border p-4">

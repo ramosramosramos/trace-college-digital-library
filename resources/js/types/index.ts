@@ -47,6 +47,7 @@ export interface Book{
     image?: string;
     file?: string;
     author?: string;
+    is_featured:boolean;
 }
 export interface Category{
     id: string;

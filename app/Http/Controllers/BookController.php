@@ -16,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with('media')->select(['id', 'title', 'author'])->orderBy('is_featured','desc')->latest()->paginate(21);
+        $books = Book::with('media')->select(['id', 'title', 'author', 'is_featured'])->orderBy('is_featured', 'desc')->latest()->paginate(21);
 
         return inertia('book/index', ['books' => BookResource::collection($books)]);
     }
@@ -100,6 +100,11 @@ class BookController extends Controller
         $book->forceDelete();
     }
 
+
+    public function toggleFeatured(Book $book)
+    {
+        $book->update(['is_featured' => !$book->is_featured]);
+    }
     public function categories()
     {
         return Cache::remember('categories', now()->addHours(23), function () {

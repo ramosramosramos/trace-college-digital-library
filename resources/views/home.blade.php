@@ -274,7 +274,7 @@ ans:wght@400;600&display=swap" rel="stylesheet">
                 <img src="{{ $book['image'] }}" alt="{{ $book['title'] }}">
                     <h3>{{ $book['title'] }}</h3>
                     <p>{{ $book['author'] }}</p>
-                    <a href="{{ route('books.show', $book['id']) }}" class="btn-outline">Read Now</a>
+                    <a href="{{ $book['file']}}" target="_blank" class="btn-outline">Read Now</a>
                 </div>
                 @endforeach
             </div>
