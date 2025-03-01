@@ -70,6 +70,7 @@ export default function Edit({ categories, book }: { categories: Category[], boo
     });
 
 
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('books.update',book.data.id), {
@@ -78,7 +79,7 @@ export default function Edit({ categories, book }: { categories: Category[], boo
                 reset()
                 toast.success('The book has been successfully updated.',)
                 setTimeout(() => {
-                    // router.get(route('books.index'))
+                    router.get(route('books.index'))
                 }, 1000);
             }
         })
