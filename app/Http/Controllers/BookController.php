@@ -74,11 +74,13 @@ class BookController extends Controller
     {
         $book->delete();
     }
+
     public function restore($id)
     {
         $book = Book::withTrashed()->findOrFail($id);
         $book->restore();
     }
+
     public function forceDelete($id)
     {
         $book = Book::withTrashed()->findOrFail($id);

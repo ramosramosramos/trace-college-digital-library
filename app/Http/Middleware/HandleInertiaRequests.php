@@ -37,7 +37,8 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
-        $user =$request?->user();
+        $user = $request?->user();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -45,7 +46,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user,
             ],
-            'isAdmin'=>$user?->role==="admin"
+            'isAdmin' => $user?->role === 'admin',
         ];
     }
 }

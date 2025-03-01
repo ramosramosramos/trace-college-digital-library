@@ -22,17 +22,19 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>['required','string'],
-            'author'=>['required','string'],
-            'category_id'=>['required','numeric'],
-            'file'=>['required','file'],
-            'image'=>['nullable','file'],
+            'title' => ['required', 'string'],
+            'author' => ['required', 'string'],
+            'category_id' => ['required', 'numeric'],
+            'file' => ['required', 'file'],
+            'image' => ['nullable', 'file'],
         ];
 
     }
-    public function category(){
+
+    public function category()
+    {
         return [
-            'category_id.required'=>'The category field is required.'
+            'category_id.required' => 'The category field is required.',
         ];
     }
 }
