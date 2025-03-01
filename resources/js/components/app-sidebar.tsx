@@ -9,12 +9,7 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
 
-    {
-        title: 'Home',
-        url: route('home'),
-        icon: Home,
-        baseURL:'/'
-    },
+ 
     {
         title: 'Books',
         url: route('books.index'),

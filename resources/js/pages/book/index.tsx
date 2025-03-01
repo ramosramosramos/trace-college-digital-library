@@ -1,7 +1,8 @@
 import { BookCard } from '@/components/Cards/BookCard';
+import { DefaultPaginator } from '@/components/Paginations/default-paginator';
 import AppLayout from '@/layouts/app-layout';
 import { SharedData, type Book, type BreadcrumbItem } from '@/types';
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { PlusIcon } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -42,6 +43,9 @@ export default function Index({ books }: { books: { data: Book[] } }) {
                         ))
                     }
                 </div>
+                 <div className='flex justify-center'>
+                 <DefaultPaginator items={books}/>
+                 </div>
             </div>
         </AppLayout>
     );
