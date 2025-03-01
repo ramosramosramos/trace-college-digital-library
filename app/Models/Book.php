@@ -11,12 +11,13 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Book extends Model implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\BookFactory> */
-    use HasFactory, InteractsWithMedia,SoftDeletes;
+    use HasFactory, InteractsWithMedia, SoftDeletes;
 
     protected $fillable = [
         'category_id',
         'title',
         'author',
+        'is_featured',
     ];
 
     public function category()
