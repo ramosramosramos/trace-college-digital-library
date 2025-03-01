@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { ChevronsUpDownIcon, MoreVertical } from "lucide-react";
+import { BookOpenCheckIcon, ChevronsUpDownIcon, DeleteIcon, EditIcon, MoreVertical, Trash2Icon, ViewIcon } from "lucide-react";
 import { SidebarMenuSubButton } from "../ui/sidebar";
 import { Link, router } from "@inertiajs/react";
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
@@ -45,14 +45,14 @@ export function BookCard({ book }: { book: Book }) {
                     <DropdownMenuGroup>
                         <DropdownMenuItem asChild>
                             <button className="cursor-pointer w-full" onClick={(e) => router.get(route('books.edit',book.id))}>
-                                Edit
+                              <EditIcon className="text-blue-500"/>   Edit
                             </button>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                         <button className="cursor-pointer w-full" onClick={(e) => console.log('clicke')}>
-                            Delete
+                          <Trash2Icon className="text-red-500"/>    Delete
                         </button>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -71,9 +71,9 @@ export function BookCard({ book }: { book: Book }) {
                 </div>
             </CardContent>
             <CardFooter>
-                <a href={String(book.file)} target="_blank" className="w-full cursor-pointer rounded-sm text-center p-1 transition-all ease-in-out
+                <a href={String(book.file)} target="_blank" className="w-full flex gap-4 justify-center items-center cursor-pointer rounded-sm text-center p-1 transition-all ease-in-out
          border-[2px] border-background bg-white text-background hover:bg-background hover:text-white">
-                    Read Now
+                  <BookOpenCheckIcon/>  Read Now
                 </a>
             </CardFooter>
 
