@@ -16,11 +16,12 @@ class BookResource extends JsonResource
     public function toArray(Request $request): array
     {
         $images = $this?->getMedia('images');
+
         return [
             'id' => $this->id,
             'title' => $this->title,
             'author' => $this->author,
-            'category_id'=>$this->category_id,
+            'category_id' => $this->category_id,
             'image' => $this->getFirstMediaUrl('images') ? $this->getFirstMediaUrl('images') : Storage::url('no_book.jpg'),
             'file' => $this->getFirstMediaUrl('files') ? $this->getFirstMediaUrl('files') : '#',
         ];

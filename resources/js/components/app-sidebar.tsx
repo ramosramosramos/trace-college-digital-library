@@ -23,7 +23,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Categories',
-        url: 'categories',
+        url: route('categories.index'),
         icon: ChartColumnStackedIcon,
         baseURL:'/categories',
     },

@@ -15,8 +15,8 @@ class UpdateBookRequest extends FormRequest
             'title' => ['required', 'string'],
             'author' => ['required', 'string'],
             'category_id' => ['required', 'numeric'],
-            'file' => ['nullable', ],
-            'image' => ['nullable', ],
+            'file' => ['nullable'],
+            'image' => ['nullable'],
         ];
 
     }

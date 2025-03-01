@@ -48,3 +48,8 @@ export interface Book{
     file?: string;
     author?: string;
 }
+export interface Category{
+    id: string;
+    name: string;
+    image?: string;
+}

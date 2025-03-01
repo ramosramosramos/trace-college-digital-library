@@ -8,10 +8,10 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { BookOpenCheckIcon, ChevronsUpDownIcon, DeleteIcon, EditIcon, MoreVertical, Trash2Icon, ViewIcon } from "lucide-react";
+import { BookOpenCheckIcon, EditIcon, MoreVertical, Trash2Icon } from "lucide-react";
 import { SidebarMenuSubButton } from "../ui/sidebar";
-import { Link, router } from "@inertiajs/react";
-import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
+import { router } from "@inertiajs/react";
+import { toast } from "sonner";
 type Book = {
     id: string;
     title: string;  // Remove `| undefined`
@@ -23,7 +23,7 @@ type Book = {
 
 
 export function BookCard({ book }: { book: Book }) {
-    const cleanup = useMobileNavigation();
+
     console.log(book.title)
     return (
         <Card className={''}>
@@ -31,7 +31,7 @@ export function BookCard({ book }: { book: Book }) {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <SidebarMenuSubButton className="text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent group">
-                        {/* <UserInfo user={auth.user} /> */}
+
                         <MoreVertical className="ml-auto size-4" />
                     </SidebarMenuSubButton>
                 </DropdownMenuTrigger>
@@ -51,7 +51,15 @@ export function BookCard({ book }: { book: Book }) {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                        <button className="cursor-pointer w-full" onClick={(e) => console.log('clicke')}>
+                        <button className="cursor-pointer w-full" onClick={
+                            () =>{
+                                router.post(route('books.destroy',book.id),{},{
+                                    preserveScroll:true,
+                                    onSuccess:()=>{
+                                        toast.success('Book has been successfully deleted.');
+                                    }
+                                })
+                                 }}>
                           <Trash2Icon className="text-red-500"/>    Delete
                         </button>
                     </DropdownMenuItem>
