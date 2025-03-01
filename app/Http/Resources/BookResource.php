@@ -20,6 +20,7 @@ class BookResource extends JsonResource
             'author' => $this->author,
             // 'category'=>$this->category->name,
             'image' => $this->getFirstMediaUrl('images') ? $this->getFirstMediaUrl('images') : Storage::url('no_book.jpg'),
+            'file' => $this->getFirstMediaUrl('files') ? $this->getFirstMediaUrl('files') :'#',
         ];
     }
 }
