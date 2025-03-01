@@ -56,8 +56,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        
-        return inertia('book/edit', ['categories' => $this->categories() ,'book'=>new BookResource($book->load('media')) ]);
+
+        return inertia('book/edit', ['categories' => $this->categories(), 'book' => new BookResource($book->load('media'))]);
     }
 
     /**
@@ -65,7 +65,19 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $book->update($request->validated());
+        if ($request->hasFile('file')) {
+            $book->getMedia('files')->each(function ($file) {
+                $file->delete();
+            });
+            $book->addMedia($request->file)->toMediaCollection('files');
+        }
+        if ($request->hasFile('image')) {
+            $book->getMedia('images')->each(function ($image) {
+                $image->delete();
+            });
+            $book->addMedia($request->image)->toMediaCollection('images');
+        }
     }
 
     /**

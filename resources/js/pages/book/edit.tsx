@@ -65,25 +65,24 @@ export default function Edit({ categories, book }: { categories: Category[], boo
         title: book.data?.title || '',
         author: book.data?.author || '',
         category_id: book.data?.category_id || '',
-        file: book.data?.file || undefined,
-        image: book.data?.image || undefined,
+        file:  undefined,
+        image: undefined,
     });
 
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        // post(route('books.store'), {
-        //     preserveScroll: true,
-        //     onSuccess: () => {
-        //         reset()
-        //         toast.success('New book has been successfully Editd.',)
-        //         setTimeout(() => {
-        //             router.get(route('books.index'))
-        //         }, 1000);
-        //     }
-        // })
+        post(route('books.update',book.data.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset()
+                toast.success('The book has been successfully updated.',)
+                setTimeout(() => {
+                    // router.get(route('books.index'))
+                }, 1000);
+            }
+        })
 
-        console.log(data)
     };
 
     return (
@@ -226,7 +225,7 @@ export default function Edit({ categories, book }: { categories: Category[], boo
                                 disabled={processing}
                             >
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Add this new book
+                              Save changes
                             </Button>
                         </div>
                     </form>
