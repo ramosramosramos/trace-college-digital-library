@@ -14,8 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('media')->select(['id','name'])->paginate(21);
-        return inertia('category/index',['categories'=>CategoryResource::collection($categories)]);
+        $categories = Category::with('media')->select(['id', 'name'])->paginate(21);
+
+        return inertia('category/index', ['categories' => CategoryResource::collection($categories)]);
     }
 
     /**
@@ -60,7 +61,7 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
         if ($request->hasFile('image')) {
-            $category->getMedia('categories')->each(function($image){
+            $category->getMedia('categories')->each(function ($image) {
                 $image->delete();
             });
             $category->addMedia($request->image)->toMediaCollection('categories');
@@ -74,11 +75,13 @@ class CategoryController extends Controller
     {
         $category->delete();
     }
+
     public function restore($id)
     {
         $category = Category::withTrashed()->findOrFail($id);
         $category->restore();
     }
+
     public function forceDelete($id)
     {
         $category = Category::withTrashed()->findOrFail($id);

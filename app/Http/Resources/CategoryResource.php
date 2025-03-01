@@ -15,9 +15,9 @@ class CategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->id,
-            'name'=>$this->name,
-            'image'=>$this->getFirstMediaUrl('categories') ? $this->getFirstMediaUrl('categories'):'/dump/no_category.jpg' ,
+            'id' => $this->id,
+            'name' => $this->name,
+            'image' => $this->getFirstMediaUrl('categories') ? $this->getFirstMediaUrl('categories') : '/dump/no_category.jpg',
         ];
     }
 }
