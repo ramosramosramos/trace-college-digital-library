@@ -28,16 +28,16 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory()->create([
             'name' => 'I am admin 2',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin2@gmail.com',
             'email_verified_at' => now(),
             'role' => 'admin',
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
         ]);
-        Category::factory(20)->create();
-        Book::factory(100)->create();
-        $this->call([
-            CategorySeeder::class,
-        ]);
+        // Category::factory(20)->create();
+        // Book::factory(100)->create();
+        // $this->call([
+        //     CategorySeeder::class,
+        // ]);
     }
 }
